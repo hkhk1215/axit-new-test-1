@@ -1,6 +1,9 @@
-import React from 'react'
-import styles from './styles.module.css'
+import axios from 'axios';
 
-export const ExampleComponent = ({ text }) => {
-  return <div className={styles.test}>Example Component: {text}</div>
+export const dataLayer = async (data) => {
+  try {
+    return {error: false, message: 'Sucess Login', result: {data: 1}}
+  } catch (error) {
+    return {error: true, message: error.message, result: {}}
+  }
 }
