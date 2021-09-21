@@ -2,8 +2,9 @@ import axios from 'axios';
 export const Get = async ({data = {}, url ='', conf}) => {
     try {
         const response = await axios({
-            url: conf.baseUrl + url,
+            url: conf + url,
             headers : {
+                "Content-Type": "application/json",
                 'authorization' : ""
             },
             method: 'GET',
@@ -19,8 +20,9 @@ export const Get = async ({data = {}, url ='', conf}) => {
 export const Post = async ({data = {}, url ='', conf}) => {
     try {
         const response = await axios({
-            url: conf.baseUrl + url,
+            url: conf + url,
             headers : {
+                "Content-Type": "application/json",
                 'authorization' : ""
             },
             method: 'POST',
@@ -37,8 +39,9 @@ export const Post = async ({data = {}, url ='', conf}) => {
 export const Put = async ({data = {}, url ='', conf}) => {
     try {
         const response = await axios({
-            url: conf.baseUrl + url,
+            url: conf + url,
             headers : {
+                "Content-Type": "application/json",
                 'authorization' : ""
             },
             method: 'PUT',
@@ -54,8 +57,9 @@ export const Put = async ({data = {}, url ='', conf}) => {
 export const Delete = async ({data = {}, url ='', conf}) => {
     try {
         const response = await axios({
-            url: conf.baseUrl + url,
+            url: conf + url,
             headers : {
+                "Content-Type": "application/json",
                 'authorization' : ""
             },
             method: 'DELETE',
