@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import {NxApiService} from 'axit-new-test-1'
 
 const App = () => {
+  useEffect(() => {
+    NxApiService.CONFIG('prod');
+  })
   return <div>
     <button onClick={() => {
       NxApiService.POST({
