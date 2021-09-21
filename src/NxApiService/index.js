@@ -26,6 +26,7 @@ export const Post = async ({data = {}, url ='', conf}) => {
             method: 'POST',
             data : data,
         });
+        sessionStorage.setItem('data',JSON.stringify(data));
         return {error: false, message: 'Data Sucess!', result: response.data}
     } catch (error) {
         return {error: true, message: error.message, result: {}}
