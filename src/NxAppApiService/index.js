@@ -5,7 +5,8 @@ export const AppGet = async ({data = {}, url ='', conf}) => {
         const response = await axios({
             url: conf.baseUrl + url,
             headers : {
-                
+                "Content-Type": "application/json",
+                'Authorization' : `${token}`
             },
             method: 'POST',
             data : data,

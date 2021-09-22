@@ -10,18 +10,22 @@ export const Login = async ({data = {}, conf}) => {
             method: 'POST',
             data : data,
         });
-        // console.log(response.data);
         if (response.status == 200 || (response.data.isSuccess == true)) {
             let result = JSON.parse(response.data.data);
-            console.log(result.data.accessToken);
             if (result && result.data && result.data.accessToken) {
-                localStorage.setItem('token', result.data.accessToken)
-                sessionStorage.setItem('token', result.data.accessToken)
+                console.log(JSON.stringify(result))
+                sessionStorage.setItem('userInfo', JSON.stringify(result.data)) // need to remove the data;
+            } else {
+                throw {message: 'Something wrong', tokenState: false}
             }
         }
-        return {error: false, message: 'Data Sucess!', result: response.data}
+        let responseData = {};
+        if (response.data.isSuccess  == true) {
+            responseData = JSON.parse(response.data.data);
+        }
+        const result = {... response.data, data: responseData};
+        return {error: false, message: 'Data Sucess!', tokenState: true, result}
     } catch (error) {
-        return {error: true, message: error.message, result: {}}
+        return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : true, result: {}}
     }
 }
-
