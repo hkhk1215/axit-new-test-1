@@ -5,7 +5,7 @@ export const Get = async ({data = {}, url ='', conf}) => {
         console.log(data)
         const userInfos = await sessionStorage.getItem('userInfo');
         if(!userInfos) {
-            throw {message: 'Session Expired, Try Login', tokenState: false}
+            throw {message: 'Session Expired, Try Login', tokenState: true}
         }
         const userInfo = JSON.parse(userInfos)
         const response = await axios({
@@ -22,9 +22,9 @@ export const Get = async ({data = {}, url ='', conf}) => {
             responseData = JSON.parse(response.data.data);
         }
         const result = {... response.data, data: responseData};
-        return {error: false, message: 'Data Sucess!', tokenState: true, result};
+        return {error: false, message: 'Data Sucess!', tokenState: false, result};
     } catch (error) {
-        return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : true, result: {}}
+        return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
     }
 }
 
@@ -32,7 +32,7 @@ export const Post = async ({data = {}, url ='', conf}) => {
     try {
         const userInfos = await sessionStorage.getItem('userInfo');
         if(!userInfos) {
-            throw {message: 'Session Expired, Try Login', tokenState: false}
+            throw {message: 'Session Expired, Try Login', tokenState: true}
         }
         const userInfo = JSON.parse(userInfos)
         const response = await axios({
@@ -49,9 +49,9 @@ export const Post = async ({data = {}, url ='', conf}) => {
             responseData = JSON.parse(response.data.data);
         }
         const result = {... response.data, data: responseData};
-        return {error: false, message: 'Data Sucess!', tokenState: true, result};
+        return {error: false, message: 'Data Sucess!', tokenState: false, result};
     } catch (error) {
-        return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : true, result: {}}
+        return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
     }
 }
 
@@ -59,7 +59,7 @@ export const Put = async ({data = {}, url ='', conf}) => {
     try {
         const userInfos = await sessionStorage.getItem('userInfo');
         if(!userInfos) {
-            throw {message: 'Session Expired, Try Login', tokenState: false}
+            throw {message: 'Session Expired, Try Login', tokenState: true}
         }
 
         const userInfo = JSON.parse(userInfos)
@@ -77,9 +77,9 @@ export const Put = async ({data = {}, url ='', conf}) => {
             responseData = JSON.parse(response.data.data);
         }
         const result = {... response.data, data: responseData};
-        return {error: false, message: 'Data Sucess!', tokenState: true, result};
+        return {error: false, message: 'Data Sucess!', tokenState: false, result};
     } catch (error) {
-        return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : true, result: {}}
+        return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
     }
 }
 
@@ -87,7 +87,7 @@ export const Delete = async ({data = {}, url ='', conf}) => {
     try {
         const userInfos = await sessionStorage.getItem('userInfo');
         if(!userInfos) {
-            throw {message: 'Session Expired, Try Login', tokenState: false}
+            throw {message: 'Session Expired, Try Login', tokenState: true}
         }
         const userInfo = JSON.parse(userInfos)
         const response = await axios({
@@ -104,8 +104,8 @@ export const Delete = async ({data = {}, url ='', conf}) => {
             responseData = JSON.parse(response.data.data);
         }
         const result = {... response.data, data: responseData};
-        return {error: false, message: 'Data Sucess!', tokenState: true, result};
+        return {error: false, message: 'Data Sucess!', tokenState: false, result};
     } catch (error) {
-        return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : true, result: {}}
+        return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
     }
 }
