@@ -1,11 +1,15 @@
 import axios from 'axios';
 export const Get = async ({data = {}, url ='', conf}) => {
     try {
+        const token = await localStorage.getItem('token');
+        if(!token) {
+            throw {message: 'Session Expired, Try Login'}
+        }
         const response = await axios({
             url: conf + url,
             headers : {
                 "Content-Type": "application/json",
-                'authorization' : ""
+                'authorization' : `Bearer ${token}`
             },
             method: 'GET',
             params : data,
@@ -19,11 +23,15 @@ export const Get = async ({data = {}, url ='', conf}) => {
 
 export const Post = async ({data = {}, url ='', conf}) => {
     try {
+        const token = await localStorage.getItem('token');
+        if(!token) {
+            throw {message: 'Session Expired, Try Login'}
+        }
         const response = await axios({
             url: conf + url,
             headers : {
                 "Content-Type": "application/json",
-                'authorization' : ""
+                'authorization' : `Bearer ${token}`
             },
             method: 'POST',
             data : data,
@@ -38,11 +46,15 @@ export const Post = async ({data = {}, url ='', conf}) => {
 
 export const Put = async ({data = {}, url ='', conf}) => {
     try {
+        const token = await localStorage.getItem('token');
+        if(!token) {
+            throw {message: 'Session Expired, Try Login'}
+        }
         const response = await axios({
             url: conf + url,
             headers : {
                 "Content-Type": "application/json",
-                'authorization' : ""
+                'authorization' : `Bearer ${token}`
             },
             method: 'PUT',
             data : data,
@@ -56,11 +68,15 @@ export const Put = async ({data = {}, url ='', conf}) => {
 
 export const Delete = async ({data = {}, url ='', conf}) => {
     try {
+        const token = await localStorage.getItem('token');
+        if(!token) {
+            throw {message: 'Session Expired, Try Login'}
+        }
         const response = await axios({
             url: conf + url,
             headers : {
                 "Content-Type": "application/json",
-                'authorization' : ""
+                'authorization' : `Bearer ${token}`
             },
             method: 'DELETE',
             data : data,

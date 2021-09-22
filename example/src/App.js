@@ -22,7 +22,9 @@ const App = () => {
         setData({...data, password: e.target.value})
     }} value={data.password} />
     <button onClick={() => {
-        NxAuthService.Login({data: data})
+        NxAuthService.Login({data: data}).then((resp) => {
+          console.log(resp)
+        })
     }}>Login</button>
 
     <button onClick={() => {
