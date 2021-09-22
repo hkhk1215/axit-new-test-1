@@ -1,6 +1,6 @@
 # axit-new-test-1
 
-> Made with create-react-library
+> Made for integrate Api with axios and local storage
 
 [![NPM](https://img.shields.io/npm/v/axit-new-test-1.svg)](https://www.npmjs.com/package/axit-new-test-1) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
@@ -13,16 +13,11 @@ npm install --save axit-new-test-1
 ## Usage
 
 ```jsx
-import React, { Component } from 'react'
+import {NxApiService} from 'axit-new-test-1'
+```
 
-import MyComponent from 'axit-new-test-1'
-import 'axit-new-test-1/dist/index.css'
-
-class Example extends Component {
-  render() {
-    return <MyComponent />
-  }
-}
+```jsx
+NxApiService.CONFIG('prod', 'http://api.com'); // (enviroment, apiUrl);
 ```
 
 ## License
