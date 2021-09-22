@@ -1,6 +1,7 @@
 import axios from 'axios';
 export const Get = async ({data = {}, url ='', conf}) => {
     try {
+        console.log(data)
         const token = await localStorage.getItem('token');
         if(!token) {
             throw {message: 'Session Expired, Try Login'}
@@ -9,7 +10,7 @@ export const Get = async ({data = {}, url ='', conf}) => {
             url: conf + url,
             headers : {
                 "Content-Type": "application/json",
-                'authorization' : `Bearer ${token}`
+                'Authorization' : `Bearer ${token}`
             },
             method: 'GET',
             params : data,
@@ -31,7 +32,7 @@ export const Post = async ({data = {}, url ='', conf}) => {
             url: conf + url,
             headers : {
                 "Content-Type": "application/json",
-                'authorization' : `Bearer ${token}`
+                'Authorization' : `Bearer ${token}`
             },
             method: 'POST',
             data : data,
@@ -54,7 +55,7 @@ export const Put = async ({data = {}, url ='', conf}) => {
             url: conf + url,
             headers : {
                 "Content-Type": "application/json",
-                'authorization' : `Bearer ${token}`
+                'Authorization' : `Bearer ${token}`
             },
             method: 'PUT',
             data : data,
@@ -76,7 +77,7 @@ export const Delete = async ({data = {}, url ='', conf}) => {
             url: conf + url,
             headers : {
                 "Content-Type": "application/json",
-                'authorization' : `Bearer ${token}`
+                'Authorization' : `Bearer ${token}`
             },
             method: 'DELETE',
             data : data,

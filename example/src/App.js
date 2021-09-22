@@ -28,21 +28,13 @@ const App = () => {
     }}>Login</button>
 
     <button onClick={() => {
-      NxApiService.POST({
-        url : 'login',
-        data : {
-          email : 'test@mail',
-          password: '123'
-        }
+      console.log('11111111')
+      NxApiService.GET({
+        url : 'Billing/Billing/ListAllBilling',
       }).then((val) => {
         console.log(val)
       });
-    }} >POST</button>
-    <button onClick={() => {
-      NxApiService.CONFIG('prod')
-    }}>
-      Config
-    </button>
+    }} >GET</button>
   </div>
   
 }
