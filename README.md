@@ -12,6 +12,9 @@ npm install --save axit-new-test-1
 
 ## Usage
 
+> To setup Config base url
+
+
 ```jsx
 import {NxApiService} from 'axit-new-test-1'
 ```
