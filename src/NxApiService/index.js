@@ -3,10 +3,11 @@ import axios from 'axios';
 export const Get = async ({data = {}, url ='', conf}) => {
     try {
         console.log(data)
-        const userInfo = await sessionStorage.getItem('userInfo');
-        if(!userInfo) {
+        const userInfos = await sessionStorage.getItem('userInfo');
+        if(!userInfos) {
             throw {message: 'Session Expired, Try Login', tokenState: false}
         }
+        const userInfo = JSON.parse(userInfos)
         const response = await axios({
             url: conf + url,
             headers : {
@@ -29,10 +30,11 @@ export const Get = async ({data = {}, url ='', conf}) => {
 
 export const Post = async ({data = {}, url ='', conf}) => {
     try {
-        const userInfo = await sessionStorage.getItem('userInfo');
-        if(!userInfo) {
+        const userInfos = await sessionStorage.getItem('userInfo');
+        if(!userInfos) {
             throw {message: 'Session Expired, Try Login', tokenState: false}
         }
+        const userInfo = JSON.parse(userInfos)
         const response = await axios({
             url: conf + url,
             headers : {
@@ -55,10 +57,12 @@ export const Post = async ({data = {}, url ='', conf}) => {
 
 export const Put = async ({data = {}, url ='', conf}) => {
     try {
-        const userInfo = await sessionStorage.getItem('userInfo');
-        if(!userInfo) {
+        const userInfos = await sessionStorage.getItem('userInfo');
+        if(!userInfos) {
             throw {message: 'Session Expired, Try Login', tokenState: false}
         }
+
+        const userInfo = JSON.parse(userInfos)
         const response = await axios({
             url: conf + url,
             headers : {
@@ -81,10 +85,11 @@ export const Put = async ({data = {}, url ='', conf}) => {
 
 export const Delete = async ({data = {}, url ='', conf}) => {
     try {
-        const userInfo = await sessionStorage.getItem('userInfo');
-        if(!userInfo) {
+        const userInfos = await sessionStorage.getItem('userInfo');
+        if(!userInfos) {
             throw {message: 'Session Expired, Try Login', tokenState: false}
         }
+        const userInfo = JSON.parse(userInfos)
         const response = await axios({
             url: conf + url,
             headers : {
