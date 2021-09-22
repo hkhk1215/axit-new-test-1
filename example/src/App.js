@@ -1,12 +1,30 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
-import {NxApiService} from 'axit-new-test-1'
+import {NxApiService, NxAuthService} from 'axit-new-test-1'
+let baseUrl = process.env.react_app_baseurl;
 
 const App = () => {
-  useEffect(() => {
-    NxApiService.CONFIG('prod');
+  
+  const [data, setData] = useState({
+    userName: '',
+    password : "",
   })
+  useEffect(() => {
+    console.log(baseUrl)
+    NxApiService.CONFIG('prod', baseUrl);
+  },[])
   return <div>
+
+    <input onChange={(e) => {
+        setData({...data, userName: e.target.value})
+    }} value={data.userName} />
+    <input onChange={(e) => {
+        setData({...data, password: e.target.value})
+    }} value={data.password} />
+    <button onClick={() => {
+        NxAuthService.Login({data: data})
+    }}>Login</button>
+
     <button onClick={() => {
       NxApiService.POST({
         url : 'login',

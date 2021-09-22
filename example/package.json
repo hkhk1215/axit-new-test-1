@@ -7,7 +7,10 @@
     "start": "node ../node_modules/react-scripts/bin/react-scripts.js start",
     "build": "node ../node_modules/react-scripts/bin/react-scripts.js build",
     "test": "node ../node_modules/react-scripts/bin/react-scripts.js test",
-    "eject": "node ../node_modules/react-scripts/bin/react-scripts.js eject"
+    "eject": "node ../node_modules/react-scripts/bin/react-scripts.js eject",
+    "build:production": "env-cmd -f .env.production ../node_modules/react-scripts/bin/react-scripts.js build",
+    "start:production": "env-cmd -f .env.production ../node_modules/react-scripts/bin/react-scripts.js start",
+    "start:development": "env-cmd -f .env.development ../node_modules/react-scripts/bin/react-scripts.js start"
   },
   "dependencies": {
     "react": "file:../node_modules/react",
