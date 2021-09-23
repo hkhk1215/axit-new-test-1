@@ -6,7 +6,6 @@ export const AppGet = async ({data = {}, url ='', conf}) => {
             url: conf.baseUrl + url,
             headers : {
                 "Content-Type": "application/json",
-                'Authorization' : `${token}`
             },
             method: 'POST',
             data : data,

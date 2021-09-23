@@ -1,110 +1,64 @@
 import axios from 'axios';
+import { AppDelete, AppGet, AppPost, AppPut } from '../NxAppApiService';
 
-export const Get = async ({data = {}, url ='', conf}) => {
+import { DeleteMethod, GetMethod, PostMethod, PutMethod } from '../NxPortalApiService'; 
+
+
+export const Get = async ({data = {}, url ='', conf, platform}) => {
     try {
-        console.log(data)
-        const userInfos = await sessionStorage.getItem('userInfo');
-        if(!userInfos) {
-            throw {message: 'Session Expired, Try Login', tokenState: true}
+        let result = {}
+        if(platform == 'portal') {
+            result =await GetMethod({data: data, url: url, conf: conf});
         }
-        const userInfo = JSON.parse(userInfos)
-        const response = await axios({
-            url: conf + url,
-            headers : {
-                "Content-Type": "application/json",
-                'Authorization' : `${userInfo.accessToken}`
-            },
-            method: 'GET',
-            params : data,
-        });
-        let responseData = {};
-        if (response.data.isSuccess  == true) {
-            responseData = JSON.parse(response.data.data);
+        else {
+            result =await AppGet({data: data, url: url, conf: conf});
         }
-        const result = {... response.data, data: responseData};
-        return {error: false, message: 'Data Sucess!', tokenState: false, result};
+        return result;
     } catch (error) {
         return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
     }
 }
 
-export const Post = async ({data = {}, url ='', conf}) => {
+export const Post = async ({data = {}, url ='', conf, platform}) => {
     try {
-        const userInfos = await sessionStorage.getItem('userInfo');
-        if(!userInfos) {
-            throw {message: 'Session Expired, Try Login', tokenState: true}
+        let result = {}
+        if(platform == 'portal') {
+            result =await PostMethod({data: data, url: url, conf: conf});
         }
-        const userInfo = JSON.parse(userInfos)
-        const response = await axios({
-            url: conf + url,
-            headers : {
-                "Content-Type": "application/json",
-                'Authorization' : `${userInfo.accessToken}`
-            },
-            method: 'POST',
-            data : data,
-        });
-        let responseData = {};
-        if (response.data.isSuccess  == true) {
-            responseData = JSON.parse(response.data.data);
+        else {
+            result =await AppPost({data: data, url: url, conf: conf});
         }
-        const result = {... response.data, data: responseData};
-        return {error: false, message: 'Data Sucess!', tokenState: false, result};
+        return result;
     } catch (error) {
         return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
     }
 }
 
-export const Put = async ({data = {}, url ='', conf}) => {
+export const Put = async ({data = {}, url ='', conf, platform}) => {
     try {
-        const userInfos = await sessionStorage.getItem('userInfo');
-        if(!userInfos) {
-            throw {message: 'Session Expired, Try Login', tokenState: true}
+        let result = {}
+        if(platform == 'portal') {
+            result = await PutMethod({data: data, url: url, conf: conf});
         }
-
-        const userInfo = JSON.parse(userInfos)
-        const response = await axios({
-            url: conf + url,
-            headers : {
-                "Content-Type": "application/json",
-                'Authorization' : `${userInfo.accessToken}`
-            },
-            method: 'PUT',
-            data : data,
-        });
-        let responseData = {};
-        if (response.data.isSuccess  == true) {
-            responseData = JSON.parse(response.data.data);
+        else {
+            result = await AppPut({data: data, url: url, conf: conf});
         }
-        const result = {... response.data, data: responseData};
-        return {error: false, message: 'Data Sucess!', tokenState: false, result};
+        return result;
     } catch (error) {
         return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
     }
 }
 
-export const Delete = async ({data = {}, url ='', conf}) => {
+export const Delete = async ({data = {}, url ='', conf, platform}) => {
     try {
-        const userInfos = await sessionStorage.getItem('userInfo');
-        if(!userInfos) {
-            throw {message: 'Session Expired, Try Login', tokenState: true}
+        let result = {}
+        if(platform == 'portal') {
+            result = await DeleteMethod({data: data, url: url, conf: conf});
         }
-        const userInfo = JSON.parse(userInfos)
-        const response = await axios({
-            url: conf + url,
-            headers : {
-                "Content-Type": "application/json",
-                'Authorization' : `${userInfo.accessToken}`
-            },
-            method: 'DELETE',
-            data : data,
-        });
-        let responseData = {};
-        if (response.data.isSuccess  == true) {
-            responseData = JSON.parse(response.data.data);
+        else {
+            result = await AppDelete({data: data, url: url, conf: conf});
         }
-        const result = {... response.data, data: responseData};
-        return {error: false, message: 'Data Sucess!', tokenState: false, result};
+        return result;
     } catch (error) {
         return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
     }

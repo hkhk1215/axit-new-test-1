@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import {NxApiService, NxAuthService} from 'axit-new-test-1'
 let baseUrl = process.env.react_app_baseurl;
-
+let platform = process.env.react_app_site;
 const App = () => {
   
   const [data, setData] = useState({
@@ -11,7 +11,8 @@ const App = () => {
   })
   useEffect(() => {
     console.log(baseUrl)
-    NxApiService.CONFIG('prod', baseUrl);
+    console.log(platform)
+    NxApiService.CONFIG('prod', baseUrl, platform);
   },[])
   return <div>
 
@@ -28,9 +29,16 @@ const App = () => {
     }}>Login</button>
 
     <button onClick={() => {
+      NxApiService.DELETE({
+        url : 'Platform/City/GetAllCities',
+        data: {}
+      })
+    }}>User Info</button>
+
+    <button onClick={() => {
       console.log('11111111')
       NxApiService.GET({
-        url : 'Billing/Billing/ListAllBilling',
+        url : 'Platform/City/GetAllCities',
       }).then((val) => {
         console.log(val)
       });
