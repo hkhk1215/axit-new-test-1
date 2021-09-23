@@ -25,15 +25,25 @@ const App = () => {
     <button onClick={() => {
         NxAuthService.Login({data: data}).then((resp) => {
           console.log(resp)
+
         })
     }}>Login</button>
 
     <button onClick={() => {
-      NxApiService.DELETE({
-        url : 'Platform/City/GetAllCities',
-        data: {}
+      // NxApiService.DELETE({
+      //   url : 'Platform/City/GetAllCities',
+      //   data: {}
+      // })
+      NxAuthService.GetUserInfo().then(data => {
+        console.log(data)
       })
     }}>User Info</button>
+
+    <button onClick={() => {
+      NxAuthService.logout().then(data => {
+        console.log(data)
+      })
+    }}>Logout</button>
 
     <button onClick={() => {
       console.log('11111111')

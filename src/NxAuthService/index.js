@@ -1,29 +1,43 @@
 import axios from "axios";
-export const Login = async ({data = {}, conf}) => {
+import { decrypt, encrypt } from "../NxCryptoService";
+import { getUserInfoMethod, LoginApi, LogoutApi } from "../NxPortalAuthService";
+export const Login = async ({data = {}, conf, platform}) => {
     try {
-        const response = await axios({
-            url: conf + 'PAM/Login',
-            headers : {
-                "Content-Type": "application/json",
-                'Access-Control-Allow-Origin': '*'
-            },
-            method: 'POST',
-            data : data,
-        });
-        if (response.status == 200 || (response.data.isSuccess == true)) {
-            let result = JSON.parse(response.data.data);
-            if (result && result.accessToken) {
-                sessionStorage.setItem('userInfo', JSON.stringify(result)) // need to remove the data;
-            } else {
-                throw {message: 'Something wrong', tokenState: true}
-            }
+        let result = {};
+        if(platform == 'portal') {
+            result = await LoginApi({data: data, conf: conf});
+        } else {
+
         }
-        let responseData = {};
-        if (response.data.isSuccess  == true) {
-            responseData = JSON.parse(response.data.data);
+        return result;
+    } catch (error) {
+        return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
+    }
+}
+
+export const Logout = async (platform) => {
+    try {
+        let result = {}
+        if(platform == 'portal') {
+            result = await LogoutApi();
+        } else {
+            // result = await LogoutAppApi();
         }
-        const result = {... response.data, data: responseData};
-        return {error: false, message: 'Data Sucess!', tokenState: false, result}
+        return result;
+    } catch (error) {
+        return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
+    }
+}
+
+export const getUserInfo = async (platform) => {
+    try {
+        let result = {}
+        if (platform == 'portal') {
+            result = await getUserInfoMethod();
+        } else {
+
+        }
+        return result;
     } catch (error) {
         return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
     }
