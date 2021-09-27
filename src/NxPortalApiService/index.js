@@ -1,12 +1,13 @@
 import axios from 'axios';
-
+import { decrypt, encrypt } from "../NxCryptoService";
 export const GetMethod = async ({data = {}, url ='', conf}) => {
     try {
         const userInfos = await sessionStorage.getItem('userInfo');
         if(!userInfos) {
             throw {message: 'Session Expired, Try Login', tokenState: true}
         }
-        const userInfo = JSON.parse(userInfos)
+        let decode = await decrypt(userInfos);
+        const userInfo = JSON.parse(decode.result);
         const response = await axios({
             url: conf + url,
             headers : {
@@ -21,21 +22,21 @@ export const GetMethod = async ({data = {}, url ='', conf}) => {
             responseData = JSON.parse(response.data.data);
         }
         const result = {... response.data, data: responseData};
-        return {error: false, message: 'Data Sucess!', tokenState: false, result};
-        return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
+        return {Sucess: true, message: 'Data Sucess!', tokenState: false, result};
+        // return {Sucess: false, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
     } catch (error) {
-        return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
+        return {Sucess: false, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
     }
 }
 
 export const PostMethod = async ({data = {}, url ='', conf}) => {
     try {
-        console.log(url)
         const userInfos = await sessionStorage.getItem('userInfo');
         if(!userInfos) {
             throw {message: 'Session Expired, Try Login', tokenState: true}
         }
-        const userInfo = JSON.parse(userInfos)
+        let decode = await decrypt(userInfos);
+        const userInfo = JSON.parse(decode.result);
         const response = await axios({
             url: conf + url,
             headers : {
@@ -50,9 +51,9 @@ export const PostMethod = async ({data = {}, url ='', conf}) => {
             responseData = JSON.parse(response.data.data);
         }
         const result = {... response.data, data: responseData};
-        return {error: false, message: 'Data Sucess!', tokenState: false, result};
+        return {Sucess: true, message: 'Data Sucess!', tokenState: false, result};
     } catch (error) {
-        return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
+        return {Sucess: false, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
     }
 }
 
@@ -62,7 +63,8 @@ export const PutMethod = async ({data = {}, url ='', conf}) => {
         if(!userInfos) {
             throw {message: 'Session Expired, Try Login', tokenState: true}
         }
-        const userInfo = JSON.parse(userInfos)
+        let decode = await decrypt(userInfos);
+        const userInfo = JSON.parse(decode.result);
         const response = await axios({
             url: conf + url,
             headers : {
@@ -77,9 +79,9 @@ export const PutMethod = async ({data = {}, url ='', conf}) => {
             responseData = JSON.parse(response.data.data);
         }
         const result = {... response.data, data: responseData};
-        return {error: false, message: 'Data Sucess!', tokenState: false, result};
+        return {Sucess: true, message: 'Data Sucess!', tokenState: false, result};
     } catch (error) {
-        return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
+        return {Sucess: false, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
     }
 }
 
@@ -89,7 +91,8 @@ export const DeleteMethod = async ({data = {}, url ='', conf}) => {
         if(!userInfos) {
             throw {message: 'Session Expired, Try Login', tokenState: true}
         }
-        const userInfo = JSON.parse(userInfos)
+        let decode = await decrypt(userInfos);
+        const userInfo = JSON.parse(decode.result);
         const response = await axios({
             url: conf + url,
             headers : {
@@ -104,8 +107,8 @@ export const DeleteMethod = async ({data = {}, url ='', conf}) => {
             responseData = JSON.parse(response.data.data);
         }
         const result = {... response.data, data: responseData};
-        return {error: false, message: 'Data Sucess!', tokenState: false, result};
+        return {Sucess: true, message: 'Data Sucess!', tokenState: false, result};
     } catch (error) {
-        return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
+        return {Sucess: false, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
     }
 }

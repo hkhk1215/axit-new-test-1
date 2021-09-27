@@ -1,4 +1,5 @@
 import axios from "axios";
+import { decrypt, encrypt } from "../NxCryptoService";
 export const LoginApi = async ({data = {}, conf}) => {
     try {
         const response = await axios({
@@ -10,15 +11,15 @@ export const LoginApi = async ({data = {}, conf}) => {
             method: 'POST',
             data : data,
         });
-        if (response.status == 200 || (response.data.isSuccess == true)) {
+        if (response.status == 200 && (response.data.isSuccess == true)) {
             let result = JSON.parse(response.data.data);
             if (result && result.accessToken) {
-                // let hash = await encrypt(JSON.stringify(result));
-                // console.log(hash);
-                // if (hash.error == true) {
-                //     throw {message: hash.message, tokenState: true}
-                // }
-                sessionStorage.setItem('userInfo', JSON.stringify(result)) // need to remove the data;
+                let hash = await encrypt(JSON.stringify(result));
+                if (hash.Sucess == false) {
+                    throw {message: hash.message, tokenState: true}
+                }
+                // sessionStorage.setItem('userInfo', JSON.stringify(result)) // need to remove the data;
+                sessionStorage.setItem('userInfo', hash.result)
             } else {
                 throw {message: 'Something wrong', tokenState: true}
             }
@@ -26,21 +27,23 @@ export const LoginApi = async ({data = {}, conf}) => {
         let responseData = {};
         if (response.data.isSuccess  == true) {
             responseData = JSON.parse(response.data.data);
+        } else {
+            throw {message: response.data.message, tokenState: true}
         }
         delete responseData.accessToken;
         const result = {... response.data, data: responseData};
-        return {error: false, message: 'Data Sucess!', tokenState: false, result}
+        return {Sucess: true, message: 'Data Sucess!', tokenState: false, result}
     } catch (error) {
-        return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
+        return {Sucess: false, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
     }
 }
 
 export const LogoutApi = async () => {
     try {
         sessionStorage.clear('userInfo');
-        return {error: false, message: 'Logout Sucess!', tokenState: true, result: {}}
+        return {Sucess: true, message: 'Logout Sucess!', tokenState: true, result: {}}
     } catch (error) {
-        return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
+        return {Sucess: false, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
     }
 }
 
@@ -50,12 +53,11 @@ export const getUserInfoMethod = async () => {
         if(!data) {
             throw {message: 'Session Expired, Try Login', tokenState: true}
         }
-        // let decode = await decrypt(data);
-        // let resp = JSON.parse(decode.result)
-        let resp = JSON.parse(data);
+        let decode = await decrypt(data);
+        let resp = JSON.parse(decode.result)
         delete resp.accessToken;
-        return {error: false, message: 'Data Sucess!', tokenState: false, result: resp};
+        return {Sucess: true, message: 'Data Sucess!', tokenState: false, result: resp};
     } catch (error) {
-        return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
+        return {Sucess: false, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
     }
 }

@@ -2,6 +2,7 @@ import configs from "./configs";
 import { Delete, Get, Post, Put } from "./NxApiService";
 import { AppDelete, AppGet, AppPost, AppPut } from "./NxAppApiService";
 import { getUserInfo, Login, Logout } from "./NxAuthService";
+import {encrypt, decrypt} from './NxCryptoService'
 
 let conf = configs.dev.baseUrl;
 let envs = 'dev'
@@ -29,5 +30,7 @@ export const NxApiService = {
 export const NxAuthService = {
   Login : ({data= {}}) => Login({data: data, conf, platform: platforms}),
   logout : () => Logout(platforms),
-  GetUserInfo: () => getUserInfo(platforms)
+  GetUserInfo: () => getUserInfo(platforms),
+  encrypt: (data = '') => encrypt(data = data),
+  decrypt: (data= '') => decrypt(data= data)
 }

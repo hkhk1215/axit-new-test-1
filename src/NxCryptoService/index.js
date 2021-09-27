@@ -1,25 +1,27 @@
-import CryptoJS from "crypto-js";
-let secreatKey = "@lt@5c10cryt0";
+// import CryptoJS from "crypto-js";
+import crypto, { Cipher } from 'crypto';
+const algorithm = 'aes-256-ctr';
+// const iv = crypto.randomBytes(16)
+// const secreatKey = '@lt@5c10cryt0key'
 
-export const encrypt = (data = '') => {
+const secreatKey = '@lt@5c10cryt0keyyek0tyrc01c5@tl@';
+const iv = crypto.randomBytes(16);
+export const encrypt =  async (data = '') => {
     try {
-        const encrypts = CryptoJS.AES.encrypt(JSON.stringify({data}), secreatKey).toString();
-        return {error : false, message: '', result : encrypts}
+        const cipher = crypto.createCipheriv(algorithm, secreatKey, iv);
+        const encrypted = Buffer.concat([cipher.update(data) , cipher.final()]);
+        return {Sucess : true, message: '', result: encrypted.toString('hex')}
     } catch (error) {
-        console.log(error)
-        return {error : true, message: 'encryption Error', result : ''};
+        return {Sucess : false, message: 'encryption Error', result : ''};
     }
 }
 
-export const decrypt = (data = '') => {
+export const decrypt = async (data = '') => {
     try {
-        var decrypts = CryptoJS.AES.decrypt(data, 'secret').toString(CryptoJS.enc.Utf8);
-        console.log(decrypts);
-        let val = JSON.parse(decrypts)
-        console.log(val.data)
-        return {error : false, message: '', result : val.data}
+        const decipher = crypto.createDecipheriv(algorithm, secreatKey, iv);
+        const decrypted = Buffer.concat([decipher.update(Buffer.from(data, 'hex')), decipher.final()])
+        return {error : false, message: '', result: decrypted.toString()}
     } catch (error) {
-        console.log(error)
         return {error : true, message: 'encryption Error', result : ''};
     }
 }

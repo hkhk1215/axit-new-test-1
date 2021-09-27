@@ -11,7 +11,7 @@ export const Login = async ({data = {}, conf, platform}) => {
         }
         return result;
     } catch (error) {
-        return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
+        return {Sucess: false, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
     }
 }
 
@@ -25,7 +25,7 @@ export const Logout = async (platform) => {
         }
         return result;
     } catch (error) {
-        return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
+        return {Sucess: false, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
     }
 }
 
@@ -39,6 +39,6 @@ export const getUserInfo = async (platform) => {
         }
         return result;
     } catch (error) {
-        return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
+        return {Sucess: false, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
     }
 }

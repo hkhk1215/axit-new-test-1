@@ -15,7 +15,7 @@ export const Get = async ({data = {}, url ='', conf, platform}) => {
         }
         return result;
     } catch (error) {
-        return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
+        return {Sucess: false, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
     }
 }
 
@@ -30,7 +30,7 @@ export const Post = async ({data = {}, url ='', conf, platform}) => {
         }
         return result;
     } catch (error) {
-        return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
+        return {Sucess: false, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
     }
 }
 
@@ -45,7 +45,7 @@ export const Put = async ({data = {}, url ='', conf, platform}) => {
         }
         return result;
     } catch (error) {
-        return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
+        return {Sucess: false, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
     }
 }
 
@@ -60,6 +60,6 @@ export const Delete = async ({data = {}, url ='', conf, platform}) => {
         }
         return result;
     } catch (error) {
-        return {error: true, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
+        return {Sucess: false, message: error.message, tokenState: error.tokenState ? error.tokenState : false, result: {}}
     }
 }
